@@ -1,18 +1,27 @@
 {
   "name": "namaste-react",
   "version": "1.0.0",
-  "description": "This is react by Akshay Saini",
+  "description": "This is namaste react by venkat",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Venkat3113/Namaste-react.git"
   },
   "author": "Venkat",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Venkat3113/Namaste-react/issues"
+  },
+  "homepage": "https://github.com/Venkat3113/Namaste-react#readme",
   "devDependencies": {
     "parcel": "^2.15.2"
   },
-  "keywords": [],
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
