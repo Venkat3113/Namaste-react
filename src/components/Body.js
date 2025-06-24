@@ -1,11 +1,11 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
 
 const Body = () =>{
 
     // State variable - super powerful variable
-     const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+     const [listOfRestaurants, setListOfRestaurants] = useState([]);
     // const [searchText, setSearchText] = useState("");
     
     useEffect(() => {
@@ -14,7 +14,7 @@ const Body = () =>{
 
 
     const fetchData = async () => {
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=16.3066525&lng=80.4365402&collection=83649&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
+    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9628669&lng=77.57750899999999&collection=83649&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
     const json = await data.json();
 
     // Filter cards that are restaurants and have info
@@ -27,8 +27,13 @@ const Body = () =>{
     setListOfRestaurants(restaurantCards);
 };
 
-
-    return(
+    // conditional rendering
+    return listOfRestaurants.length === 0 ?
+        ( 
+            <Shimmer />
+        ):
+    
+        (
         <div className="body">
             <div className="search">
                 <input type="text" placeholder="Search for food items" />
