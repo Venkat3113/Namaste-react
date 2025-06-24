@@ -55,5 +55,5 @@
 .res-container{
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 7px;
 }
