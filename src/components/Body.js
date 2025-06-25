@@ -6,16 +6,28 @@ const Body = () =>{
 
     // State variable - super powerful variable
      const [listOfRestaurants, setListOfRestaurants] = useState([]);
-    // const [searchText, setSearchText] = useState("");
+     
+     const [searchText, setSearchText] = useState("");
+
+     const[filteredListOfRestaurants, setFilteredListOfRestaurants] = useState([]);
     
     useEffect(() => {
         fetchData();
     }, []);
 
 
+
+
+
+
     const fetchData = async () => {
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9628669&lng=77.57750899999999&collection=83649&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
+    const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9628669&lng=77.57750899999999&collection=83649&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
     const json = await data.json();
+
+
+
+
+
 
     // Filter cards that are restaurants and have info
     const restaurantCards = json.data.cards.filter(
@@ -25,22 +37,52 @@ const Body = () =>{
     );
 
     setListOfRestaurants(restaurantCards);
+    setFilteredListOfRestaurants(restaurantCards);
+    console.log(filteredListOfRestaurants);
 };
+
+ 
 
     // conditional rendering
     return listOfRestaurants.length === 0 ?
         ( 
             <Shimmer />
         ):
+
+        
     
         (
         <div className="body">
-            <div className="search">
-                <input type="text" placeholder="Search for food items" />
-                <button className="search-btn">Search</button>
-            </div>
+            
 
             <div className="filter">
+
+                <div className="search">
+                <input 
+                    type="text" 
+                    placeholder="Search for food items" 
+                    className="search-box" 
+                    value={searchText}
+                    onChange={(e) => 
+                        setSearchText(e.target.value)}
+                    />
+                <button 
+                className="search-btn"
+                onClick={()=>{
+                    
+                   
+                    const filteredRestaurant = listOfRestaurants.filter(
+                        (restaurant) => 
+                            restaurant.card.card.info.name.toLowerCase().includes(searchText.toLowerCase())
+                    );
+
+                    setFilteredListOfRestaurants(filteredRestaurant);
+
+                }}  
+                >Search
+                </button>
+            </div>
+             
                     <button 
                     className="filter-btn"
                     onClick={() => {
@@ -48,7 +90,7 @@ const Body = () =>{
                         const filteredList = listOfRestaurants.filter(
                             (restaurant) => restaurant.card.card.info.avgRating > 4
                         );
-                        setListOfRestaurants(filteredList);
+                        setFilteredListOfRestaurants(filteredList);
 
                     }}
                     >
@@ -56,7 +98,7 @@ const Body = () =>{
                     </button>
             </div>
             <div className="res-container">
-                { listOfRestaurants.map((restaurant) => (
+                { filteredListOfRestaurants.map((restaurant) => (
                     <RestaurantCard 
                         key={restaurant.card.card.info.id} 
                         resData={ restaurant} 
