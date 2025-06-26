@@ -10,7 +10,7 @@ const Body = () =>{
      const onlineStatus = useOnlineStatus();
 
 
-    // State variable - super powerful variable
+      // State variable - super powerful variable
      const [listOfRestaurants, setListOfRestaurants] = useState([]);
      
      const [searchText, setSearchText] = useState("");
@@ -26,9 +26,9 @@ const Body = () =>{
     const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.1066576&lng=83.39555059999999&collection=83649&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null    ");
     const json = await data.json();
 
-    // Filter cards that are restaurants and have info
+      // Filter cards that are restaurants and have info
     const restaurantCards = json.data.cards.filter(
-        (card) =>
+        (card) => 
             card.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.Restaurant" &&
             card.card.card.info
     );
@@ -40,14 +40,14 @@ const Body = () =>{
     
          if (onlineStatus === false) {
         return (
-            <h1 className="offline-status">
+            <h1 className = "offline-status">
                 You are not connected to the internet. Please check your connection.
             </h1>
         );
     }
    
 
-    // conditional rendering
+      // conditional rendering
     return listOfRestaurants.length === 0 ?
         ( 
             <Shimmer />
@@ -56,23 +56,23 @@ const Body = () =>{
         
     
         (
-        <div className="body">
+        <div className = "body">
             
 
-            <div className="filter">
+            <div className = "flex items-center">
 
-                <div className="search">
+                <div className = "m-4 p-4">
                 <input 
-                    type="text" 
-                    placeholder="Search for food items" 
-                    className="search-box" 
-                    value={searchText}
-                    onChange={(e) => 
+                    type        = "text"
+                    placeholder = "Search for food items"
+                    className   = "border border-solid border-1 border-black rounded-lg  p-1"
+                    value       = {searchText}
+                    onChange    = {(e) => 
                         setSearchText(e.target.value)}
                     />
                 <button 
-                className="search-btn"
-                onClick={()=>{
+                className = "px-3 py-1 bg-amber-600 text-white rounded-lg m-4"
+                onClick   = {()=>{
                     
                    
                     const filteredRestaurant = listOfRestaurants.filter(
@@ -88,8 +88,8 @@ const Body = () =>{
             </div>
              
                     <button 
-                    className="filter-btn"
-                    onClick={() => {
+                    className = "px-3 py-1 bg-amber-600 text-white rounded-lg m-4"
+                    onClick   = {() => {
 
                         const filteredList = listOfRestaurants.filter(
                             (restaurant) => restaurant.card.card.info.avgRating > 4
@@ -101,11 +101,11 @@ const Body = () =>{
                     Top rated restaurants
                     </button>
             </div>
-            <div className="res-container">
+            <div className = "flex flex-wrap ">
                 { filteredListOfRestaurants.map((restaurant) => (
-                    <Link to={"/restaurants/" + restaurant.card.card.info.id} key={restaurant.card.card.info.id}>
+                    <Link to = {"/restaurants/" + restaurant.card.card.info.id} key = {restaurant.card.card.info.id}>
                         <RestaurantCard 
-                            resData={ restaurant}/>
+                            resData = { restaurant}/>
                     </Link>
                 ))}
             </div>

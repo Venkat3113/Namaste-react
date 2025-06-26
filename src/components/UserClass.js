@@ -6,7 +6,7 @@ class UserClass extends react.Component {
 
         this.state={
            userInfo:{
-            name: "Dummy Name",
+            name    : "Dummy Name",
             location: "Dummy Location",
            },
         };
@@ -18,7 +18,7 @@ class UserClass extends react.Component {
         const json = await data.json();
         
         this.setState({
-                userInfo:json,
+                userInfo: json,
                         
         }); 
 
@@ -30,11 +30,11 @@ class UserClass extends react.Component {
         return(
          
             
-            <div className="user-card">
-            <img src={avatar_url} />
-            <h2>Name : {name}</h2>
-            <h3>Location : {location}</h3>
-            <h4>Contact : {email}</h4>    
+            <div className = "bg-green-300 border border-solid border-1 border-black rounded-lg  p-1">
+            <img src       = {avatar_url} />
+            <h2>Name    : {name}</h2>
+            <h3>Location: {location}</h3>
+            <h4>Contact : {email}</h4>
             
         </div>
             
