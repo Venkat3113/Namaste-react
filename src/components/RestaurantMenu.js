@@ -5,17 +5,15 @@ import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
     
-    const { resId } = useParams();
+const { resId } = useParams();
 
-    const { resinfo } = useRestaurantMenu(resId);
-
-   
-
+const { resinfo } = useRestaurantMenu(resId);
 
    
-    if (resinfo === null) {
-  return <Shimmer />;
-}
+
+
+   
+if (resinfo === null) { return <Shimmer />; }
 
 const { name, costForTwoMessage, cuisines } = resinfo?.cards[2]?.card?.card?.info;
 
@@ -36,7 +34,7 @@ console.log(itemCards);
                 ))} 
             </ul>
 
-            </div>
+        </div>
     );
 };
 

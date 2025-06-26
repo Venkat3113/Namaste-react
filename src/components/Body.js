@@ -2,8 +2,13 @@ import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () =>{
+
+
+     const onlineStatus = useOnlineStatus();
+
 
     // State variable - super powerful variable
      const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -17,18 +22,9 @@ const Body = () =>{
     }, []);
 
 
-
-
-
-
     const fetchData = async () => {
     const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.1066576&lng=83.39555059999999&collection=83649&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null    ");
     const json = await data.json();
-
-
-
-
-
 
     // Filter cards that are restaurants and have info
     const restaurantCards = json.data.cards.filter(
@@ -40,9 +36,16 @@ const Body = () =>{
     setListOfRestaurants(restaurantCards);
     setFilteredListOfRestaurants(restaurantCards);
     console.log(filteredListOfRestaurants);
-};
-
- 
+                                    };
+    
+         if (onlineStatus === false) {
+        return (
+            <h1 className="offline-status">
+                You are not connected to the internet. Please check your connection.
+            </h1>
+        );
+    }
+   
 
     // conditional rendering
     return listOfRestaurants.length === 0 ?
