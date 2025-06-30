@@ -1,6 +1,7 @@
 import Shimmer from "./Shimmer"; 
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 
 const RestaurantMenu = () => {
@@ -19,21 +20,47 @@ const { name, costForTwoMessage, cuisines } = resinfo?.cards[2]?.card?.card?.inf
 
 const { itemCards } = resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.categories?.[0] || resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
 
-console.log(itemCards);
+console.log(resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+
+const categories = resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+     c => c?.card?.card?.["@type"]=== "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" || c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+     )
+console.log(categories);
 
 
-    return (
-        <div className="restaurant-menu">
-            <h1>{name}</h1>
-            <h2>{costForTwoMessage}</h2>
-            <h3>{cuisines.join(", ")}</h3>
-            <h2>Menu</h2>
-            <ul>
-                {itemCards.map((item) => (
-                    <li key={item?.card?.info?.id}>{item?.card?.info?.name} - Rs{item?.card?.info?.price / 100}</li>
-                ))} 
-            </ul>
 
+return (
+        <div className = "p-4 flex flex-col items-center">
+            <h1 className="font-bold text-3xl my-4">{name}</h1>
+            <p className="font-bold text-lg">{cuisines.join(", ")} - {costForTwoMessage}</p>
+            <div className="w-6/12 m-4 p-4 ">
+
+
+
+            {categories.map((category) => {
+            const c= category.card.card; 
+            return c["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" ?(
+            <div className="flex flex-col m-0 p-0" key={category.card.card.categoryId }>
+            
+            <div className="font-bold text-3xl bg-gray-50"  >  {c.title} </div>
+             {c.categories?.map((subCategory, index) => (
+        <RestaurantCategory
+          key={subCategory.categoryId || index}
+          data={subCategory}
+          className="m-1"
+        /> ))}
+        <div className="h-4  mb-6 bg-gray-200 border  shadow-3xl" ></div>
+            </div>
+            )
+            :(
+        
+            <RestaurantCategory key={category.card.card.categoryId} data = {category.card.card} className="m-1" />
+            
+            );} )}
+
+
+
+            </div>
         </div>
     );
 };
