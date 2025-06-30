@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -16,6 +16,8 @@ const Body = () =>{
      const [searchText, setSearchText] = useState("");
 
      const[filteredListOfRestaurants, setFilteredListOfRestaurants] = useState([]);
+
+     const RestauarntCardPromoted = withPromotedLabel(RestaurantCard);
     
     useEffect(() => {
         fetchData();
@@ -65,7 +67,7 @@ const Body = () =>{
                 <input 
                     type        = "text"
                     placeholder = "Search for food items"
-                    className   = "border border-solid border-1 border-black rounded-lg  p-1"
+                    className   = "border border-solid  border-black rounded-lg  p-1"
                     value       = {searchText}
                     onChange    = {(e) => 
                         setSearchText(e.target.value)}
@@ -103,9 +105,13 @@ const Body = () =>{
             </div>
             <div className = "flex flex-wrap ">
                 { filteredListOfRestaurants.map((restaurant) => (
-                    <Link to = {"/restaurants/" + restaurant.card.card.info.id} key = {restaurant.card.card.info.id}>
-                        <RestaurantCard 
-                            resData = { restaurant}/>
+                    <Link 
+                    to = {"/restaurants/" + restaurant.card.card.info.id} 
+                    key = {restaurant.card.card.info.id}
+                    className = "no-underline text-black">
+
+                        { restaurant.card.card.info.promoted ? <RestauarntCardPromoted resData = { restaurant}/> : <RestaurantCard resData = { restaurant}/>}
+                        
                     </Link>
                 ))}
             </div>
