@@ -1,7 +1,8 @@
 import { LOGO_URL } from "../utils/constants";
-import { useState, useEffect } from "react";
+import { useState, useContext, use  } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () =>{
 
@@ -12,11 +13,10 @@ const Header = () =>{
       // if an empty array is passed, it runs only once after the first render
       // if an array with dependencies is passed, it runs after the first render and whenever the dependencies change(whenever btnNameReact changes in this case)
 
-    useEffect(() => {
-        console.log("useEffect called");
-    }, [btnNameReact]);
-    
+
     const onlineStatus = useOnlineStatus();
+
+    const {loggedInUser} = useContext(UserContext);
 
     return(
         <div className = "flex justify-between items-center bg-pink-100 shadow-lg p-4 m-2">
@@ -38,6 +38,7 @@ const Header = () =>{
                     >
                         {btnNameReact}
                     </button>
+                     <li className="px-4 font-bold">{loggedInUser}</li>
                 </ul>
             </div>
         </div>

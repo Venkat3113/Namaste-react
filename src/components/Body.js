@@ -1,8 +1,9 @@
 import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () =>{
 
@@ -48,6 +49,7 @@ const Body = () =>{
         );
     }
    
+    const {setUserName , loggedInUser} = useContext(UserContext);
 
       // conditional rendering
     return listOfRestaurants.length === 0 ?
@@ -102,6 +104,18 @@ const Body = () =>{
                     >
                     Top rated restaurants
                     </button>
+
+                    <div >
+                        <label>User Name : </label>
+                        <input 
+                        className="border border-solid  border-black rounded-lg  p-1"
+                        value={loggedInUser}
+                        onChange={(e) => {
+                            setUserName(e.target.value);
+                        }}  
+                        />
+                    </div>
+
             </div>
             <div className = "flex flex-wrap ">
                 { filteredListOfRestaurants.map((restaurant) => (

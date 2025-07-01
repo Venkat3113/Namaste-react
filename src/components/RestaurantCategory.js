@@ -2,8 +2,6 @@ import ItemList from "./ItemList";
 import {useState} from "react";
 
 const RestaurantCategory = ({data}) =>{
-    console.log("ho");
-    console.log(data);
 
     const[showItems, setShowItems] = useState(false);
 

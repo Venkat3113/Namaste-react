@@ -20,12 +20,12 @@ const { name, costForTwoMessage, cuisines } = resinfo?.cards[2]?.card?.card?.inf
 
 const { itemCards } = resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.categories?.[0] || resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
 
-console.log(resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+
 
 const categories = resinfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
      c => c?.card?.card?.["@type"]=== "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" || c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
      )
-console.log(categories);
+
 
 
 
@@ -35,12 +35,13 @@ return (
             <p className="font-bold text-lg">{cuisines.join(", ")} - {costForTwoMessage}</p>
             <div className="w-6/12 m-4 p-4 ">
 
-
+            <div className="h-4  mb-6 bg-amber-500 border  shadow-3xl" ></div>
 
             {categories.map((category) => {
             const c= category.card.card; 
             return c["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" ?(
-            <div className="flex flex-col m-0 p-0" key={category.card.card.categoryId }>
+            <div className="flex flex-col mt-6 mb-3 p-0" key={category.card.card.categoryId }>
+           
             
             <div className="font-bold text-3xl bg-gray-50"  >  {c.title} </div>
              {c.categories?.map((subCategory, index) => (
