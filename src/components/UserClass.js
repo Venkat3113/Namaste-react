@@ -30,7 +30,7 @@ class UserClass extends react.Component {
         return(
          
             
-            <div className = "bg-green-300 border border-solid border-1 border-black rounded-lg  p-1">
+            <div className = "bg-green-300 border border-solid  border-black rounded-lg  p-1">
             <img src       = {avatar_url} />
             <h2>Name    : {name}</h2>
             <h3>Location: {location}</h3>

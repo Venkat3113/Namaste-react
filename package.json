@@ -18,6 +18,14 @@
   },
   "homepage": "https://github.com/Venkat3113/Namaste-react#readme",
   "devDependencies": {
+    "@babel/core": "^7.27.7",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "babel-jest": "^30.0.2",
+    "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2",
     "parcel": "^2.15.2"
   },
   "dependencies": {
