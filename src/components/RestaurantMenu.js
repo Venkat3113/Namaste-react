@@ -43,7 +43,7 @@ return (
             <div className="flex flex-col mt-6 mb-3 p-0" key={category.card.card.categoryId }>
            
             
-            <div className="font-bold text-3xl bg-gray-50"  >  {c.title} </div>
+            <div className="font-bold text-3xl bg-gray-50 mb-10 pl-4"  >  {c.title} </div>
              {c.categories?.map((subCategory, index) => (
         <RestaurantCategory
           key={subCategory.categoryId || index}
